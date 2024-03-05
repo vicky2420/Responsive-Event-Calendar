@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="eventApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="task4.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+    <script src="task4.js"></script>
+</head>
+
+<body ng-controller="EventController as eventCtrl">
+    <div class="calendar">
+        <div class="header">
+            <button ng-click="eventCtrl.prevMonth()" class="btn btn-prev">&#9664;</button>
+            <h2>{{ eventCtrl.currentMonth.format('MMMM YYYY') }}</h2>
+            <button ng-click="eventCtrl.nextMonth()" class="btn btn-next">&#9654;</button>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th ng-repeat="day in eventCtrl.weekdays">{{ day }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="week in eventCtrl.weeks">
+                    <td ng-repeat="day in week">
+                        <div class="day" ng-class="{ 'today': day.isSame(eventCtrl.today, 'day') }">
+                            <span>{{ day.format('D') }}</span>
+                            <div ng-repeat="event in eventCtrl.events[day.format('YYYY-MM-DD')]" class="event">
+                                {{ event.title }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
